@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acceso Fútbol S/1</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#07111f;color:#fff}
+header{padding:30px 18px;text-align:center;background:linear-gradient(135deg,#061b35,#087244)}
+header h1{margin:0;font-size:30px}header p{margin:9px 0 0;color:#d8f8e8}
+.container{max-width:700px;margin:auto;padding:18px}.card{background:#111d2d;border:1px solid #263950;border-radius:18px;padding:19px;margin:14px 0}
+h2,h3{margin-top:0}.match{margin-bottom:12px}.teams{font-size:18px;font-weight:800}.time{color:#9fb1c5;margin-top:5px}.price{color:#79ffb0;font-weight:800;font-size:20px;margin:12px 0}
+button{width:100%;border:0;border-radius:12px;padding:14px;font-size:16px;font-weight:800;cursor:pointer;background:#15a765;color:white}
+button:disabled{opacity:.5;cursor:not-allowed}.small{font-size:13px;line-height:1.5;color:#9fb1c5}
+.lock{font-size:48px;text-align:center}.yape{background:#19283b;border-radius:14px;padding:18px;text-align:center;margin:15px 0}.yape strong{font-size:25px;display:block;margin:6px 0}
+input[type=file]{width:100%;padding:12px;background:#091422;border-radius:10px;color:#ccd7e3;margin:8px 0 14px}
+#access{display:none}.success{background:#123c2b;border:1px solid #287e59;padding:15px;border-radius:13px;margin-top:15px;color:#b7ffd7}
+.appbtn{display:block;text-align:center;text-decoration:none;background:#15a765;color:white;padding:15px;border-radius:12px;font-weight:800;margin-top:12px}
+footer{text-align:center;color:#6e8197;padding:25px;font-size:12px}
+</style>
+</head>
+<body>
+<header>
+<h1>⚽ FÚTBOL S/1</h1>
+<p>Acceso diario a tus partidos favoritos</p>
+</header>
+
+<main class="container">
+<div class="card">
+<h2>🔒 Acceso a la aplicación</h2>
+<div class="lock">📲</div>
+<p style="text-align:center"><strong>Paga S/1 y desbloquea el acceso a la aplicación.</strong></p>
+<p class="small">Primero realiza tu Yape, sube la captura del comprobante y, una vez aprobado el pago, se habilitará el botón para descargar la aplicación.</p>
+</div>
+
+<div class="card">
+<h3>💳 Pago de acceso</h3>
+<div class="yape">
+YAPE
+<strong>931 381 806</strong>
+A nombre de <strong>BREFNER PALOMINO</strong>
+<p class="small">Monto: <strong style="color:#79ffb0">S/1.00</strong></p>
+</div>
+<label><strong>📸 Sube tu comprobante</strong></label>
+<input type="file" id="proof" accept="image/*">
+<button onclick="submitProof()">ENVIAR COMPROBANTE</button>
+<div id="verify" class="success" style="display:none;text-align:center">
+🔎 Verificando comprobante...<br><strong id="count" style="font-size:32px">30</strong> segundos
+</div>
+<div id="pending" class="success" style="display:none">
+✅ Comprobante recibido.<br>
+Tu pago queda pendiente de aprobación.
+</div>
+</div>
+
+<div id="access" class="card">
+<h2>🎉 ¡Acceso habilitado!</h2>
+<p>Tu pago fue aprobado. Ahora puedes descargar la aplicación.</p>
+<a class="appbtn" href="https://play.google.com/store/apps/details?id=com.jcc.gota" target="_blank">
+📲 DESCARGAR APLICACIÓN
+</a>
+<p class="small" style="margin-top:12px">El acceso puede configurarse para vencer automáticamente al finalizar el día.</p>
+</div>
+
+<div class="card">
+<h3>⚽ Partidos disponibles</h3>
+<p class="small">Esta sección puede mostrar los partidos disponibles después de habilitar el acceso.</p>
+<div style="padding:13px;background:#19283b;border-radius:12px;margin-top:10px">🔴 Equipo A vs Equipo B · 7:00 PM</div>
+<div style="padding:13px;background:#19283b;border-radius:12px;margin-top:10px">🔵 Equipo C vs Equipo D · 9:00 PM</div>
+</div>
+</main>
+
+<footer>Versión de demostración · El pago y la aprobación reales requieren un sistema de servidor.</footer>
+
+<script>
+function submitProof(){
+ const file=document.getElementById('proof').files[0];
+ if(!file){alert('Por favor, sube primero la captura de tu Yape.');return;}
+ document.getElementById('pending').style.display='none';
+ document.getElementById('verify').style.display='block';
+ let n=30;
+ document.getElementById('count').textContent=n;
+ const timer=setInterval(()=>{
+   n--;
+   document.getElementById('count').textContent=n;
+   if(n<=0){
+     clearInterval(timer);
+     document.getElementById('verify').innerHTML =
+       '⚠️ <strong>Demo:</strong> aquí se conectará la verificación automática real del comprobante.<br>' +
+       '<span class="small">No se habilita el acceso solo por subir una imagen.</span>';
+   }
+ },1000);
+}
+</script>
+</body>
+</html>
